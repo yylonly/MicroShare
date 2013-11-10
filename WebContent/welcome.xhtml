@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template/BasicTemplate.xhtml">
+<ui:define name="content">
+<h:outputLabel>Welcome: #{loginBean.user.username}</h:outputLabel>
+<h:form>
+		
+	<h:dataTable id="result" value="#{loginBean.rsquerylist}" 
+	var="item" bgcolor="#F1F1F1" border="0"  cellspacing="0"
+	 width="100%"  rules="all" >			 
+	
+	<f:facet name="header">
+	  <h:outputText value="Query List" />
+	</f:facet> 
+	
+	<h:column>
+	  <f:facet name="header">
+	  <h:outputText value="Id" />
+	  </f:facet> 
+	  <h:outputText value="#{item.id}"></h:outputText>
+	</h:column>
+	
+	<h:column>
+	  <f:facet name="header">
+	  <h:outputText value="Description"/>
+	  </f:facet> 
+	   <h:outputText value="#{item.description}"></h:outputText>
+	</h:column>
+	
+	<h:column>
+	  <f:facet name="header">
+	  <h:outputText value="SQL Query"/>
+	  </f:facet>
+	   <h:outputText value="#{item.sqlquery}"></h:outputText>
+	</h:column>
+	
+	<h:column>
+	  <f:facet name="header">
+	  <h:outputText value="Service URL"/>
+	  </f:facet>
+	  <h:outputText id="url" value="#{item.url}">Run</h:outputText>
+	</h:column>
+	
+	<h:column>
+	  <f:facet name="header">
+	  <h:outputText value="Running online"/>
+	  </f:facet>
+	  
+	  
+	  
+	  <h:commandButton value="Clike to Run" action="#{loginBean.runSql(item.url)}">
+	  	<f:ajax execute="@form" render="result"></f:ajax>
+	  </h:commandButton>
+	</h:column>
+	
+				
+	</h:dataTable>
+ </h:form>
+
+</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+ <html xmlns="http://www.w3c.org/1999/xhtml"	
+ xmlns:h="http://java.sun.com/jsf/html"	
+ xmlns:p="http://primefaces.org/ui"> 
+ <h:head> 
+ </h:head>
+ <h:body>	
+ 	<p:editor /> 
+ 	<p:calendar mode="inline"/>  
+ 	<p:notificationBar position="top" effect="slide" widgetVar="bar" styleClass="top">  
+    <h:outputText value="What PrimeFaces has so far is just the beginning!" style="color:#000000;font-size:36px;" />  
+</p:notificationBar>  
+  
+<p:commandButton value="Show" onclick="PF('bar').show()" type="button" />  
+<p:commandButton value="Hide" onclick="PF('bar').hide()" type="button" />  
+
+<h:form>  
+  
+    <p:commandButton value="View" icon="ui-icon-extlink" actionListener="#{loginBean.viewCars}" />  
+  
+    <p:commandButton value="Options" icon="ui-icon-extlink" actionListener="#{loginBean.viewCarsCustomized}" />  
+  
+</h:form>  
+
+ </h:body> 
+</html>

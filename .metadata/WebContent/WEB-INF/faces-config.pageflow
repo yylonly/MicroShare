@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13830703741630" configfile="/EHR/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="welcome" x="348" y="384" id="pf13830725531201" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13830726286273" path="/welcome.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login" x="132" y="300" id="pf13830725531212" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf13830726286273 pf13831236664185" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="error" x="348" y="168" id="pf13831236664186" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf13831236664185" path="/error.xhtml"/>
+  <links id="pf13830726286273" target="pf13830725531201" source="pf13830725531212" outcome="true"/>
+  <links id="pf13831236664185" target="pf13831236664186" source="pf13830725531212" outcome="false"/>
+</pageflow:Pageflow>
