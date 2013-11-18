@@ -1,7 +1,5 @@
 package mangedbean;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,12 +7,11 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.FacesException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.*;
-import javax.jws.WebService;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.context.RequestContext;
 
@@ -30,11 +27,11 @@ public class LoginBean
 	
 	private  User user;
 	private List<ListResult> rsquerylist;
-
+	private String domain;
 	@EJB 
 	CheckLogin check;
 	@EJB
-	ListQuerys listquerys;
+	ListQuerys  listquerys;
 	
 	
 	
@@ -42,36 +39,42 @@ public class LoginBean
     public void init() {
 		user = new User();
 		rsquerylist = new ArrayList<ListResult>();
-
+		HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		domain = origRequest.getRequestURL().toString();
     }
-	
-	  public void viewCars() {  
-		  System.out.println("run-----");
-	        RequestContext.getCurrentInstance().openDialog("viewCars.xhtml");  
-	    }  
-	      
-	    public void viewCarsCustomized() {  
-	        Map<String,Object> options = new HashMap<String, Object>();  
-	        options.put("modal", true);  
-	        options.put("draggable", false);  
-	        options.put("resizable", false);  
-	        options.put("contentHeight", 320);  
-	        //hint: available options are modal, draggable, resizable, width, height, contentWidth and contentHeight  
-	          
-	        RequestContext.getCurrentInstance().openDialog("viewCars", options, null);  
-	    }  
-	    
-	public String login()
+		        
+/*	public String login()
 	{
 		boolean result = check.Check(user.getUsername(), user.getPassword());
 		String version = FacesContext.class.getPackage().getImplementationVersion();
 		System.out.println("version:" + version); 
 		return String.valueOf(result);
-	}
+	}*/
 
-	public String runSql(String url)
+	public void login()
 	{
-		 FacesContext context = FacesContext.getCurrentInstance();
+		boolean result = check.Check(user.getUsername(), user.getPassword());
+		RequestContext context = RequestContext.getCurrentInstance();  
+        FacesMessage msg = null;  
+        boolean loggedIn = false; 
+        
+        if(result == true) {  
+            loggedIn = true;   
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", user.getUsername());  
+        } else {  
+            loggedIn = false;  
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials");  
+        }  
+          
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+        context.addCallbackParam("loggedIn", loggedIn);  
+	}	
+	
+
+	
+	/*public String runSql(String url)
+	{
+		   FacesContext context = FacesContext.getCurrentInstance();
 		   ExternalContext ext = context.getExternalContext();
 		   HttpServletResponse response = (HttpServletResponse) ext.getResponse();
 		    try 
@@ -83,7 +86,7 @@ public class LoginBean
 		    }
 		    context.responseComplete();
 		    return "";
-	}
+	}*/
 	public List<ListResult> getRsquerylist() {
 		return listquerys.listAll(user);
 	}
@@ -100,6 +103,14 @@ public class LoginBean
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
 	}
 
 

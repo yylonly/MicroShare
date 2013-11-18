@@ -9,8 +9,6 @@
 	  <class>model.Role</class>
 	  <class>model.Urlforwebservice</class>
 	  <class>model.User</class>
-		<properties>
-			<property name="eclipselink.jdbc.native-sql" value="true"/>
-		</properties>
+	
 	</persistence-unit>
 </persistence>
