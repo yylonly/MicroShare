@@ -3,7 +3,7 @@
   <display-name>EHR</display-name>
 	<context-param>  
 	     <param-name>primefaces.THEME</param-name>  
-	     <param-value>delta</param-value>  
+	     <param-value>aristo</param-value>  
 	</context-param>  
 	 <welcome-file-list>
         <welcome-file>main.jsf</welcome-file>
