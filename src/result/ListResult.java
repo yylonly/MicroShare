@@ -1,5 +1,6 @@
 package result;
 
+//SQL result entry.
 public class ListResult {
 	private int id;
 	private String description;

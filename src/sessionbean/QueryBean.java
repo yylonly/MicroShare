@@ -10,7 +10,7 @@ import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 /**
- * Session Bean implementation class QueryBean
+ * Run specific SQL and return XML
  */
 @Stateless
 @LocalBean

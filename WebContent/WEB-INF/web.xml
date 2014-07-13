@@ -3,7 +3,7 @@
   <display-name>EHR</display-name>
 	<context-param>  
 	     <param-name>primefaces.THEME</param-name>  
-	     <param-value>aristo</param-value>  
+	     <param-value>delta</param-value>  
 	</context-param>  
 	 <welcome-file-list>
         <welcome-file>main.jsf</welcome-file>
@@ -22,13 +22,9 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>/faces/*</url-pattern>
+     <servlet-name>Faces Servlet</servlet-name>
+     <url-pattern>*.jsf</url-pattern>
   </servlet-mapping>
- <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.jsf</url-pattern>
- </servlet-mapping>
    
 
 </web-app>

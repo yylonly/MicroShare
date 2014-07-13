@@ -9,6 +9,9 @@
 	  <class>model.Role</class>
 	  <class>model.Urlforwebservice</class>
 	  <class>model.User</class>
-	
+
+	  <properties>
+	  	<property name="eclipselink.jdbc.cache-statements" value="false"/>
+	  </properties>	
 	</persistence-unit>
 </persistence>

@@ -8,7 +8,7 @@ import javax.persistence.*;
  * The persistent class for the querytorole database table.
  * 
  */
-@Entity
+@Entity 
 @NamedQuery(name="Querytorole.findAll", query="SELECT q FROM Querytorole q")
 public class Querytorole implements Serializable {
 	private static final long serialVersionUID = 1L;

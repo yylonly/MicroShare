@@ -22,73 +22,79 @@ import sessionbean.ListQuerys;
 
 @ManagedBean
 @SessionScoped
-public class LoginBean 
+public class LoginBean  
 {
 	
-	private  User user;
+	private User user;
+	//Result of querys
 	private List<ListResult> rsquerylist;
 	private String domain;
+	private boolean loggedIn;
+	private ExternalContext externalContext;
 	@EJB 
 	CheckLogin check;
+	
+	//SessionBean Queryentires by user
 	@EJB
-	ListQuerys  listquerys;
-	
-	
-	
+	ListQuerys listquerys;
+	  
 	@PostConstruct
-    public void init() {
+    public void init() { 
+		
+		//init user and query list
 		user = new User();
 		rsquerylist = new ArrayList<ListResult>();
+		externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		
+		//Get Domain
 		HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		domain = origRequest.getRequestURL().toString();
     }
 		        
-/*	public String login()
-	{
-		boolean result = check.Check(user.getUsername(), user.getPassword());
-		String version = FacesContext.class.getPackage().getImplementationVersion();
-		System.out.println("version:" + version); 
-		return String.valueOf(result);
-	}*/
+	  
+	public void logout()
+	{ 
+		System.out.println("run logout");
+		addMessage("Successful Logout");
+		externalContext.invalidateSession();
+	    user = new User();
+		rsquerylist = new ArrayList<ListResult>();
+		loggedIn = false;
+		System.out.println("run finish logout");
+	}
+	
+	
+	public void addMessage(String summary) {
+	        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+	}
 
 	public void login()
 	{
+		//invoke login session bean to check username and password
 		boolean result = check.Check(user.getUsername(), user.getPassword());
+		
+		//Set Message Display
 		RequestContext context = RequestContext.getCurrentInstance();  
-        FacesMessage msg = null;  
-        boolean loggedIn = false; 
+        FacesMessage msg = null; 
+        //Login State
+        loggedIn = result;        
+        //Store session
+  //      externalContext.getSessionMap().put("LoginState", loggedIn);
         
-        if(result == true) {  
-            loggedIn = true;   
+        if(result == true) {    
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", user.getUsername());  
-        } else {  
-            loggedIn = false;  
-            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials");  
+        } else {   
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid Username or Password");  
         }  
-          
         FacesContext.getCurrentInstance().addMessage(null, msg);  
-        context.addCallbackParam("loggedIn", loggedIn);  
+        context.addCallbackParam("loggedIn", loggedIn); 
+        
 	}	
 	
-
-	
-	/*public String runSql(String url)
-	{
-		   FacesContext context = FacesContext.getCurrentInstance();
-		   ExternalContext ext = context.getExternalContext();
-		   HttpServletResponse response = (HttpServletResponse) ext.getResponse();
-		    try 
-		    {
-		    	response.sendRedirect(url);
-		    } catch (IOException ex) 
-		    {
-		      
-		    }
-		    context.responseComplete();
-		    return "";
-	}*/
+	//Get Queryentities by user
 	public List<ListResult> getRsquerylist() {
-		return listquerys.listAll(user);
+		return listquerys.listAll(user, loggedIn);
 	}
 
 
@@ -112,8 +118,4 @@ public class LoginBean
 	public void setDomain(String domain) {
 		this.domain = domain;
 	}
-
-
-	
-	
 }
