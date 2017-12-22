@@ -80,10 +80,4 @@ public class DynamicQueryBean
 	public void setURL(String uRL) {
 		URL = uRL;
 	}
-
-	
-	
-	
-
-
 }

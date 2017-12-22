@@ -34,7 +34,7 @@
 	     <!-- Logo, login link and panel-->
 	     <h:form>        
 	        
-	     	<p:graphicImage value="resources/images/logo.png" />  
+	     	 <p:graphicImage value="resources/images/logo.png" />  
 	     	<!-- loginlink for css -->
 	        <p:commandLink styleClass="loginlink" value="Login"  id="login" onclick="PF('dlg').show()"></p:commandLink>	        
 	        <p:commandLink styleClass="loginlink" value="Logout" id="logout" update="growl :resultform" actionListener="#{loginBean.logout}"></p:commandLink>
@@ -52,9 +52,9 @@
 	       	 	<p:commandButton value="Login"  update=":resultform" actionListener="#{loginBean.login}"  
 	       	 	   oncomplete="handleLoginRequest(xhr, status, args)" >
 	       	 	</p:commandButton>	       	 	
-		   		<p:commandButton value="Reset" update="loginpanel" process="@this"  >  
+		   		<!--  <p:commandButton value="Reset" update="loginpanel" process="@this"  >  
       				  <p:resetInput target="loginpanel" />  
-    			</p:commandButton>   
+    			</p:commandButton>   -->
 		   	  </h:panelGrid>
 	   	    </p:dialog>  
 	     </h:form> 	
